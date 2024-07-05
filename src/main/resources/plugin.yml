@@ -1,4 +1,5 @@
 name: RolePlayPlus
 version: '${version}'
 main: de.lp4.roleplay.RolePlayPlus
+author: LP4
 api-version: '1.21'
