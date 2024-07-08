@@ -1,14 +1,10 @@
 package de.lp4.roleplay;
 
-import io.papermc.paper.event.block.BlockBreakBlockEvent;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import net.kyori.adventure.text.serializer.ComponentSerializer;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -18,23 +14,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.Async;
 
-import java.awt.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 public class EventLisener implements Listener {
     
@@ -69,8 +56,7 @@ public class EventLisener implements Listener {
                     }
 
                 }
-            } catch (Exception e) {
-                return;
+            } catch (Exception ignored) {
             }
         }
     }
