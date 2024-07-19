@@ -3,6 +3,7 @@ package de.lp4.roleplay;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -14,19 +15,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class EventLisener implements Listener {
     
     private final Set<UUID> v1 = new HashSet<>();
     Plugin plugin;
+    private final List<WardenTypeEvent> wardenTypeEvents = new ArrayList<>();
     
     
     public EventLisener(Plugin plugin) {
@@ -129,6 +129,26 @@ public class EventLisener implements Listener {
         
     }
     
+    @EventHandler
+    public void EntitySpawn(EntitySpawnEvent e){
+        if(e.getEntityType() == EntityType.WARDEN){
+            Chunk chunk = e.getLocation().getChunk();
+            for(WardenTypeEvent wardenTypeEvent : wardenTypeEvents){
+                if(wardenTypeEvent.chunk == chunk){
+                    if(wardenTypeEvent.CheckTime()){
+                        e.setCancelled(true);
+                        return;
+                    } else {
+                        wardenTypeEvents.remove(wardenTypeEvent);
+                        wardenTypeEvents.add(new WardenTypeEvent(chunk));
+                        return;
+                    }
+                }
+            }
+            wardenTypeEvents.add(new WardenTypeEvent(chunk));
+        }
+    }
+    
     
     @EventHandler
     public void OnJoin(PlayerJoinEvent event) {
@@ -216,4 +236,16 @@ public class EventLisener implements Listener {
    
     
     
+}
+class WardenTypeEvent {
+    public Chunk chunk;
+    public long time;
+    public WardenTypeEvent(Chunk chunk) {
+        this.chunk = chunk;
+        this.time = System.currentTimeMillis()+1000*60*3;
+    }
+    
+    public boolean CheckTime(){
+        return (System.currentTimeMillis() - time < 0);
+    }
 }
