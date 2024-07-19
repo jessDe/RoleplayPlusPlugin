@@ -3,3 +3,13 @@ version: '${version}'
 main: de.lp4.roleplay.RolePlayPlus
 author: LP4
 api-version: '1.21'
+commands: 
+  setwardenspawntime:
+    description: Set the time until the warden spawns
+    usage: /setwardenspawntime <time>
+    permission: roleplay.setwardenspawntime
+  strike:
+    description: Strike a player with lightning
+    usage: /strike <player>
+    permission: roleplay.strike
+    
