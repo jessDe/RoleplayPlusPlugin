@@ -2,10 +2,7 @@ package de.lp4.roleplay;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -27,6 +24,7 @@ import org.joml.Vector3f;
 
 import java.util.*;
 
+
 public class EventLisener implements Listener {
     
     private final Set<UUID> v1 = new HashSet<>();
@@ -41,187 +39,194 @@ public class EventLisener implements Listener {
    @EventHandler
    public void onBlockClick(PlayerInteractEvent event) {
         Player x1 = event.getPlayer();
-        if(event.getAction() == org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK){
-            try {
-                if(Objects.requireNonNull(event.getClickedBlock()).getType() == Material.BUDDING_AMETHYST && !x1.isSneaking() && event.getAction() == org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK){
-                    Material item = x1.getInventory().getItemInMainHand().getType();
-                    if( item == Material.LAPIS_LAZULI){
-                        //run command at block location
-                        x1.getWorld().getBlockAt(event.getClickedBlock().getLocation()).setType(Material.BLACK_STAINED_GLASS);
+       if(this.plugin.getConfig().getBoolean("custom-crystals")) {
+           if(event.getAction() == org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK){
+               try {
+                   if(Objects.requireNonNull(event.getClickedBlock()).getType() == Material.BUDDING_AMETHYST && !x1.isSneaking() && event.getAction() == org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK){
+                       Material item = x1.getInventory().getItemInMainHand().getType();
+                       if( item == Material.LAPIS_LAZULI){
+                           //run command at block location
+                           x1.getWorld().getBlockAt(event.getClickedBlock().getLocation()).setType(Material.BLACK_STAINED_GLASS);
 
-                        Location offsetposition = event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5);
-                        ItemDisplay itemDisplay = Bukkit.getServer().getWorlds().getFirst().spawn(offsetposition, ItemDisplay.class);
-                        itemDisplay.setTransformation(
-                                new Transformation(
-                                        new Vector3f(), // no translation
-                                        new AxisAngle4f(), // no left rotation
-                                        new Vector3f(1.01F, 1.01F, 1.01F), // scale up by a factor of 2 on all axes
-                                        new AxisAngle4f() // no right rotation
-                                ));
-                        ItemStack itemStack = new ItemStack(Material.BUDDING_AMETHYST, 1);
-                        ItemMeta meta = itemStack.getItemMeta();
-                        meta.setCustomModelData(6702);
-                        meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§bMana Crystal"));
-                        itemStack.setItemMeta(meta);
-                        itemDisplay.setItemStack(itemStack);
-                        
-                        
-                        
-                        //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getClickedBlock().getLocation().getBlockX() + " " + event.getClickedBlock().getLocation().getBlockY() + " " + event.getClickedBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6702},components:{\"minecraft:custom_model_data\":6702}}}");
-                        event.setCancelled(true);
-                    }else if(item == Material.REDSTONE) {
-                        x1.getWorld().getBlockAt(event.getClickedBlock().getLocation()).setType(Material.BLACK_STAINED_GLASS);
-                        Location offsetposition = event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5);
-                        ItemDisplay itemDisplay = Bukkit.getServer().getWorlds().getFirst().spawn(offsetposition, ItemDisplay.class);
-                        itemDisplay.setTransformation(
-                                new Transformation(
-                                        new Vector3f(), // no translation
-                                        new AxisAngle4f(), // no left rotation
-                                        new Vector3f(1.01F, 1.01F, 1.01F), // scale up by a factor of 2 on all axes
-                                        new AxisAngle4f() // no right rotation
-                                ));
-                        ItemStack itemStack = new ItemStack(Material.BUDDING_AMETHYST, 1);
-                        ItemMeta meta = itemStack.getItemMeta();
-                        meta.setCustomModelData(6701);
-                        meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§cRedstone Crystal"));
-                        itemStack.setItemMeta(meta);
-                        itemDisplay.setItemStack(itemStack);
-                        event.setCancelled(true);
-                    }else if(item == Material.ECHO_SHARD) {
-                        x1.getWorld().getBlockAt(event.getClickedBlock().getLocation()).setType(Material.BLACK_STAINED_GLASS);
+                           Location offsetposition = event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5);
+                           ItemDisplay itemDisplay = Bukkit.getServer().getWorlds().getFirst().spawn(offsetposition, ItemDisplay.class);
+                           itemDisplay.setTransformation(
+                                   new Transformation(
+                                           new Vector3f(), // no translation
+                                           new AxisAngle4f(), // no left rotation
+                                           new Vector3f(1.01F, 1.01F, 1.01F), // scale up by a factor of 2 on all axes
+                                           new AxisAngle4f() // no right rotation
+                                   ));
+                           ItemStack itemStack = new ItemStack(Material.BUDDING_AMETHYST, 1);
+                           ItemMeta meta = itemStack.getItemMeta();
+                           meta.setCustomModelData(6702);
+                           meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§bMana Crystal"));
+                           itemStack.setItemMeta(meta);
+                           itemDisplay.setItemStack(itemStack);
 
 
-                        Location offsetposition = event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5);
-                        ItemDisplay itemDisplay = Bukkit.getServer().getWorlds().getFirst().spawn(offsetposition, ItemDisplay.class);
-                        itemDisplay.setTransformation(
-                                new Transformation(
-                                        new Vector3f(), // no translation
-                                        new AxisAngle4f(), // no left rotation
-                                        new Vector3f(1.01F, 1.01F, 1.01F), // scale up by a factor of 2 on all axes
-                                        new AxisAngle4f() // no right rotation
-                                ));
-                        ItemStack itemStack = new ItemStack(Material.BUDDING_AMETHYST, 1);
-                        ItemMeta meta = itemStack.getItemMeta();
-                        meta.setCustomModelData(6703);
-                        meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§dEcho Crystal"));
-                        itemStack.setItemMeta(meta);
-                        itemDisplay.setItemStack(itemStack);
-                        
-                        
-                        //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getClickedBlock().getLocation().getBlockX() + " " + event.getClickedBlock().getLocation().getBlockY() + " " + event.getClickedBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6703},components:{\"minecraft:custom_model_data\":6703}}}");
-                        event.setCancelled(true);
-                    }
 
-                }
-            } catch (Exception ignored) {
-            }
-        }
+                           //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getClickedBlock().getLocation().getBlockX() + " " + event.getClickedBlock().getLocation().getBlockY() + " " + event.getClickedBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6702},components:{\"minecraft:custom_model_data\":6702}}}");
+                           event.setCancelled(true);
+                       }else if(item == Material.REDSTONE) {
+                           x1.getWorld().getBlockAt(event.getClickedBlock().getLocation()).setType(Material.BLACK_STAINED_GLASS);
+                           Location offsetposition = event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5);
+                           ItemDisplay itemDisplay = Bukkit.getServer().getWorlds().getFirst().spawn(offsetposition, ItemDisplay.class);
+                           itemDisplay.setTransformation(
+                                   new Transformation(
+                                           new Vector3f(), // no translation
+                                           new AxisAngle4f(), // no left rotation
+                                           new Vector3f(1.01F, 1.01F, 1.01F), // scale up by a factor of 2 on all axes
+                                           new AxisAngle4f() // no right rotation
+                                   ));
+                           ItemStack itemStack = new ItemStack(Material.BUDDING_AMETHYST, 1);
+                           ItemMeta meta = itemStack.getItemMeta();
+                           meta.setCustomModelData(6701);
+                           meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§cRedstone Crystal"));
+                           itemStack.setItemMeta(meta);
+                           itemDisplay.setItemStack(itemStack);
+                           event.setCancelled(true);
+                       }else if(item == Material.ECHO_SHARD) {
+                           x1.getWorld().getBlockAt(event.getClickedBlock().getLocation()).setType(Material.BLACK_STAINED_GLASS);
+
+
+                           Location offsetposition = event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5);
+                           ItemDisplay itemDisplay = Bukkit.getServer().getWorlds().getFirst().spawn(offsetposition, ItemDisplay.class);
+                           itemDisplay.setTransformation(
+                                   new Transformation(
+                                           new Vector3f(), // no translation
+                                           new AxisAngle4f(), // no left rotation
+                                           new Vector3f(1.01F, 1.01F, 1.01F), // scale up by a factor of 2 on all axes
+                                           new AxisAngle4f() // no right rotation
+                                   ));
+                           ItemStack itemStack = new ItemStack(Material.BUDDING_AMETHYST, 1);
+                           ItemMeta meta = itemStack.getItemMeta();
+                           meta.setCustomModelData(6703);
+                           meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§dEcho Crystal"));
+                           itemStack.setItemMeta(meta);
+                           itemDisplay.setItemStack(itemStack);
+
+
+                           //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getClickedBlock().getLocation().getBlockX() + " " + event.getClickedBlock().getLocation().getBlockY() + " " + event.getClickedBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6703},components:{\"minecraft:custom_model_data\":6703}}}");
+                           event.setCancelled(true);
+                       }
+
+                   }
+               } catch (Exception ignored) {
+               }
+           }
+       }
+        
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        if(event.getBlock().getType() == Material.BLACK_STAINED_GLASS){
-            
-            Location offsetposition = event.getBlock().getLocation().add(0.5, 0, 0.5);
-            for(Entity entity : event.getBlock().getWorld().getNearbyEntities(offsetposition, 0.1, 0.1, 0.1)){
-                if(entity.getType() == EntityType.ITEM_DISPLAY){
-                    ItemDisplay itemDisplay = (ItemDisplay) entity;
-                    int customModelData = itemDisplay.getItemStack().getItemMeta().getCustomModelData();
-                    entity.remove();
-                    //event.setCancelled(true);
-                    event.getBlock().getLocation().getBlock().setType(Material.AIR);
-                    if(event.getPlayer().getInventory().getItemInMainHand().containsEnchantment(Enchantment.SILK_TOUCH))
-                    {
-                        if(customModelData == 6701) {
-                            ItemStack item = new ItemStack(Material.BUDDING_AMETHYST, 1);
-                            ItemMeta meta = item.getItemMeta();
-                            meta.setCustomModelData(6701);
-                            meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§cRedstone Crystal"));
-                            item.setItemMeta(meta);
-                            event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
-                            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon item "+event.getBlock().getLocation().getBlockX() + " "+event.getBlock().getLocation().getBlockY() +" "+ event.getBlock().getLocation().getBlockZ()  +" {Item:{id:\"minecraft:budding_amethyst\",Count:1b,components:{\"minecraft:custom_model_data\":6701,custom_name:'\"Redstone Crystal\"'},tag:{CustomModelData:6701}}}");
-                        }else if(customModelData == 6702) {
-                            ItemStack item = new ItemStack(Material.BUDDING_AMETHYST, 1);
-                            ItemMeta meta = item.getItemMeta();
-                            meta.setCustomModelData(6702);
-                            meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§bMana Crystal"));
-                            item.setItemMeta(meta);
-                            event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
-                            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon item "+event.getBlock().getLocation().getBlockX() + " "+event.getBlock().getLocation().getBlockY() +" "+ event.getBlock().getLocation().getBlockZ()  +" {Item:{id:\"minecraft:budding_amethyst\",Count:1b,components:{\"minecraft:custom_model_data\":6702,\"custom_name\":'\"Mana Crystal\"'},tag:{CustomModelData:6702}}}");
-                        }else if(customModelData == 6703) {
-                            ItemStack item = new ItemStack(Material.BUDDING_AMETHYST, 1);
-                            ItemMeta meta = item.getItemMeta();
-                            meta.setCustomModelData(6703);
-                            meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§dEcho Crystal"));
-                            item.setItemMeta(meta);
-                            event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
-                            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon item "+event.getBlock().getLocation().getBlockX() + " "+event.getBlock().getLocation().getBlockY() +" "+ event.getBlock().getLocation().getBlockZ()  +" {Item:{id:\"minecraft:budding_amethyst\",Count:1b,components:{\"minecraft:custom_model_data\":6703,\"custom_name\":'\"Echo Crystal\"'},tag:{CustomModelData:6703}}}");
+        if(this.plugin.getConfig().getBoolean("custom-crystals")) {
+            if(event.getBlock().getType() == Material.BLACK_STAINED_GLASS){
+
+                Location offsetposition = event.getBlock().getLocation().add(0.5, 0, 0.5);
+                event.getBlock().getWorld().getNearbyEntities(offsetposition, 0.5, 0.5, 0.5).forEach(entity -> {
+                    if(entity instanceof ItemDisplay){
+                        ItemDisplay itemDisplay = (ItemDisplay) entity;
+                        int customModelData = itemDisplay.getItemStack().getItemMeta().getCustomModelData();
+                        entity.remove();
+                        //event.setCancelled(true);
+                        event.getBlock().getLocation().getBlock().setType(Material.AIR);
+                        if(event.getPlayer().getGameMode() == GameMode.CREATIVE){
+                            event.setCancelled(true);
+                            return;
                         }
-                    }else {
-                        if(customModelData == 6701) {
-                            ItemStack item = new ItemStack(Material.LARGE_AMETHYST_BUD, 1);
-                            ItemMeta meta = item.getItemMeta();
-                            meta.setCustomModelData(6801);
-                            meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§cRedstone Crystal"));
-                            item.setItemMeta(meta);
-                            event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
-                            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon item "+event.getBlock().getLocation().getBlockX() + " "+event.getBlock().getLocation().getBlockY() +" "+ event.getBlock().getLocation().getBlockZ()  +" {Item:{id:\"minecraft:large_amethyst_bud\",Count:1b,components:{\"minecraft:custom_model_data\":6801,custom_name:'\"Redstone Crystal\"'},tag:{CustomModelData:6801}}}");
-                        }else if(customModelData == 6702) {
-                            ItemStack item = new ItemStack(Material.LARGE_AMETHYST_BUD, 1);
-                            ItemMeta meta = item.getItemMeta();
-                            meta.setCustomModelData(6802);
-                            meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§bMana Crystal"));
-                            item.setItemMeta(meta);
-                            event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
-                            
-                            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon item "+event.getBlock().getLocation().getBlockX() + " "+event.getBlock().getLocation().getBlockY() +" "+ event.getBlock().getLocation().getBlockZ()  +" {Item:{id:\"minecraft:large_amethyst_bud\",Count:1b,components:{\"minecraft:custom_model_data\":6802,\"custom_name\":'\"Mana Crystal\"'},tag:{CustomModelData:6802}}}");
-                        }else if(customModelData == 6703) {
-                            ItemStack item = new ItemStack(Material.LARGE_AMETHYST_BUD, 1);
-                            ItemMeta meta = item.getItemMeta();
-                            meta.setCustomModelData(6803);
-                            meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§dEcho Crystal"));
-                            item.setItemMeta(meta);
-                            event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
-                            
-                            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon item "+event.getBlock().getLocation().getBlockX() + " "+event.getBlock().getLocation().getBlockY() +" "+ event.getBlock().getLocation().getBlockZ()  +" {Item:{id:\"minecraft:large_amethyst_bud\",Count:1b,components:{\"minecraft:custom_model_data\":6803,\"custom_name\":'\"Echo Crystal\"'},tag:{CustomModelData:6803}}}");
+                        if(event.getPlayer().getInventory().getItemInMainHand().containsEnchantment(Enchantment.SILK_TOUCH))
+                        {
+                            if(customModelData == 6701) {
+                                ItemStack item = new ItemStack(Material.BUDDING_AMETHYST, 1);
+                                ItemMeta meta = item.getItemMeta();
+                                meta.setCustomModelData(6701);
+                                meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§cRedstone Crystal"));
+                                item.setItemMeta(meta);
+                                event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
+                            }else if(customModelData == 6702) {
+                                ItemStack item = new ItemStack(Material.BUDDING_AMETHYST, 1);
+                                ItemMeta meta = item.getItemMeta();
+                                meta.setCustomModelData(6702);
+                                meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§bMana Crystal"));
+                                item.setItemMeta(meta);
+                                event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
+                            }else if(customModelData == 6703) {
+                                ItemStack item = new ItemStack(Material.BUDDING_AMETHYST, 1);
+                                ItemMeta meta = item.getItemMeta();
+                                meta.setCustomModelData(6703);
+                                meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§dEcho Crystal"));
+                                item.setItemMeta(meta);
+                                event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
+                            }
+                        }else {
+                            if(customModelData == 6701) {
+                                ItemStack item = new ItemStack(Material.LARGE_AMETHYST_BUD, 1);
+                                ItemMeta meta = item.getItemMeta();
+                                meta.setCustomModelData(6801);
+                                meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§cRedstone Crystal"));
+                                item.setItemMeta(meta);
+                                event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
+                            }else if(customModelData == 6702) {
+                                ItemStack item = new ItemStack(Material.LARGE_AMETHYST_BUD, 1);
+                                ItemMeta meta = item.getItemMeta();
+                                meta.setCustomModelData(6802);
+                                meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§bMana Crystal"));
+                                item.setItemMeta(meta);
+                                event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
+
+                            }else if(customModelData == 6703) {
+                                ItemStack item = new ItemStack(Material.LARGE_AMETHYST_BUD, 1);
+                                ItemMeta meta = item.getItemMeta();
+                                meta.setCustomModelData(6803);
+                                meta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("§dEcho Crystal"));
+                                item.setItemMeta(meta);
+                                event.getBlock().getWorld().dropItemNaturally(offsetposition, item);
+
+                            }
                         }
                     }
-                }
+                });
+
+
+
             }
-            
-            
-            
         }
+        
     }
     
     @EventHandler
     public void OnPlaceBlock(BlockPlaceEvent event){
         Player x1 = event.getPlayer();
-        if(x1.getInventory().getItemInMainHand().getItemMeta().hasCustomModelData()) {
-            int customModelData = x1.getInventory().getItemInMainHand().getItemMeta().getCustomModelData();
-            Location location = event.getBlock().getLocation();
+        if(this.plugin.getConfig().getBoolean("custom-crystals")) {
+            if(x1.getInventory().getItemInMainHand().getItemMeta().hasCustomModelData()) {
+                int customModelData = x1.getInventory().getItemInMainHand().getItemMeta().getCustomModelData();
+                Location location = event.getBlock().getLocation();
 
-            if(customModelData == 6701 && x1.getInventory().getItemInMainHand().getType() == Material.BUDDING_AMETHYST ){
-                x1.getWorld().getBlockAt(location).setType(Material.BLACK_STAINED_GLASS);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getBlock().getLocation().getBlockX() + " " + event.getBlock().getLocation().getBlockY() + " " + event.getBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6701},components:{\"minecraft:custom_model_data\":6701}}}");
-                if(x1.getGameMode() != org.bukkit.GameMode.CREATIVE) {
-                    x1.getInventory().getItemInMainHand().setAmount(x1.getInventory().getItemInMainHand().getAmount()-1);
-                }
-            } else if(customModelData == 6702 && x1.getInventory().getItemInMainHand().getType() == Material.BUDDING_AMETHYST){
+                if(customModelData == 6701 && x1.getInventory().getItemInMainHand().getType() == Material.BUDDING_AMETHYST ){
+                    x1.getWorld().getBlockAt(location).setType(Material.BLACK_STAINED_GLASS);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getBlock().getLocation().getBlockX() + " " + event.getBlock().getLocation().getBlockY() + " " + event.getBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6701},components:{\"minecraft:custom_model_data\":6701}}}");
+                    if(x1.getGameMode() != org.bukkit.GameMode.CREATIVE) {
+                        x1.getInventory().getItemInMainHand().setAmount(x1.getInventory().getItemInMainHand().getAmount()-1);
+                    }
+                } else if(customModelData == 6702 && x1.getInventory().getItemInMainHand().getType() == Material.BUDDING_AMETHYST){
 
-                x1.getWorld().getBlockAt(location).setType(Material.BLACK_STAINED_GLASS);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getBlock().getLocation().getBlockX() + " " + event.getBlock().getLocation().getBlockY() + " " + event.getBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6702},components:{\"minecraft:custom_model_data\":6702}}}");
-                if(x1.getGameMode() != org.bukkit.GameMode.CREATIVE) {
-                    x1.getInventory().getItemInMainHand().setAmount(x1.getInventory().getItemInMainHand().getAmount()-1);
-                }                } else if(customModelData == 6703 && x1.getInventory().getItemInMainHand().getType() == Material.BUDDING_AMETHYST){
-                x1.getWorld().getBlockAt(location).setType(Material.BLACK_STAINED_GLASS);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getBlock().getLocation().getBlockX() + " " + event.getBlock().getLocation().getBlockY() + " " + event.getBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6703},components:{\"minecraft:custom_model_data\":6703}}}");
-                if(x1.getGameMode() != org.bukkit.GameMode.CREATIVE) {
-                    x1.getInventory().getItemInMainHand().setAmount(x1.getInventory().getItemInMainHand().getAmount()-1);
+                    x1.getWorld().getBlockAt(location).setType(Material.BLACK_STAINED_GLASS);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getBlock().getLocation().getBlockX() + " " + event.getBlock().getLocation().getBlockY() + " " + event.getBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6702},components:{\"minecraft:custom_model_data\":6702}}}");
+                    if(x1.getGameMode() != org.bukkit.GameMode.CREATIVE) {
+                        x1.getInventory().getItemInMainHand().setAmount(x1.getInventory().getItemInMainHand().getAmount()-1);
+                    }                } else if(customModelData == 6703 && x1.getInventory().getItemInMainHand().getType() == Material.BUDDING_AMETHYST){
+                    x1.getWorld().getBlockAt(location).setType(Material.BLACK_STAINED_GLASS);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "summon minecraft:item_display " + event.getBlock().getLocation().getBlockX() + " " + event.getBlock().getLocation().getBlockY() + " " + event.getBlock().getLocation().getBlockZ() + " {transformation:{left_rotation:[0f,0f,0f,1f],right_rotation:[0f,0f,0f,1f],translation:[0f,0.5f,0f],scale:[1.01f,1.02f,1.01f]},item:{id:\"minecraft:item_frame\",count:1,tag:{CustomModelData:6703},components:{\"minecraft:custom_model_data\":6703}}}");
+                    if(x1.getGameMode() != org.bukkit.GameMode.CREATIVE) {
+                        x1.getInventory().getItemInMainHand().setAmount(x1.getInventory().getItemInMainHand().getAmount()-1);
+                    }
                 }
+
             }
-            
         }
+        
         
     }
     
@@ -229,19 +234,21 @@ public class EventLisener implements Listener {
     public void EntitySpawn(EntitySpawnEvent e){
         if(e.getEntityType() == EntityType.WARDEN){
             Chunk chunk = e.getLocation().getChunk();
+            int x = e.getLocation().getChunk().getX();
+            int z = e.getLocation().getChunk().getZ();
             for(WardenTypeEvent wardenTypeEvent : wardenTypeEvents){
-                if(wardenTypeEvent.chunk == chunk){
+                if(wardenTypeEvent.chunk.getX() == x && wardenTypeEvent.chunk.getZ() == z){
                     if(wardenTypeEvent.CheckTime()){
                         e.setCancelled(true);
                         return;
                     } else {
                         wardenTypeEvents.remove(wardenTypeEvent);
-                        wardenTypeEvents.add(new WardenTypeEvent(chunk));
+                        wardenTypeEvents.add(new WardenTypeEvent(chunk, this.plugin));
                         return;
                     }
                 }
             }
-            wardenTypeEvents.add(new WardenTypeEvent(chunk));
+            wardenTypeEvents.add(new WardenTypeEvent(chunk, this.plugin));
         }
     }
     
@@ -329,21 +336,22 @@ public class EventLisener implements Listener {
         }
         
     }
-    
-    
-   
+
+
+    static class WardenTypeEvent {
+        public Chunk chunk;
+        public long time;
+        public WardenTypeEvent(Chunk chunk, Plugin plugin) {
+            this.chunk = chunk;
+            int repsawn = plugin.getConfig().getInt("warden-spawn-time");
+            this.time = System.currentTimeMillis()+ 1000L *repsawn;
+        }
+
+        public boolean CheckTime(){
+            return (time - System.currentTimeMillis() > 0);
+        }
+    }
     
     
 }
-class WardenTypeEvent {
-    public Chunk chunk;
-    public long time;
-    public WardenTypeEvent(Chunk chunk) {
-        this.chunk = chunk;
-        this.time = System.currentTimeMillis()+1000*60*3;
-    }
-    
-    public boolean CheckTime(){
-        return (System.currentTimeMillis() - time < 0);
-    }
-}
+
