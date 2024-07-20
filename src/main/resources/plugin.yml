@@ -12,4 +12,8 @@ commands:
     description: Strike a player with lightning
     usage: /strike <player>
     permission: roleplay.strike
+  setwardenspawnradius:
+    description: Set the radius in which the warden can spawn
+    usage: /setwardenspawnradius <radius>
+    permission: roleplay.setwardenspawnradius
     

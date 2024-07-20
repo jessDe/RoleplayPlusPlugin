@@ -1,2 +1,2 @@
 ﻿warden-spawn-time: 360 # Time in seconds
-custom-crystals: false
+warden-spawn-radius: 3 # Radius in blocks
