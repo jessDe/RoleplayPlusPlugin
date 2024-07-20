@@ -27,7 +27,6 @@ import java.util.*;
 
 public class EventLisener implements Listener {
     
-    private final Set<UUID> v1 = new HashSet<>();
     Plugin plugin;
     private final List<WardenTypeEvent> wardenTypeEvents = new ArrayList<>();
     
@@ -68,13 +67,6 @@ public class EventLisener implements Listener {
     }
     
     
-    @EventHandler
-    public void OnJoin(PlayerJoinEvent event) {
-        Player x1 = event.getPlayer();
-        for (UUID h2234234 : v1) {
-            x1.hidePlayer(this.plugin, Objects.requireNonNull(x1.getServer().getPlayer(h2234234)));
-        }
-    }
 
 
     static class WardenTypeEvent {
