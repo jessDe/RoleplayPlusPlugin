@@ -2,6 +2,7 @@ package de.lp4.roleplay;
 
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Warden;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
@@ -23,7 +24,13 @@ public class EventLisener implements Listener {
     
     @EventHandler
     public void EntitySpawn(EntitySpawnEvent e){
+        // Check if the entity is a warden and has ai
         if(e.getEntityType() == EntityType.WARDEN){
+            Warden warden = (Warden) e.getEntity();
+            if (!warden.hasAI()){
+                return;
+            }
+            
             Chunk chunk = e.getLocation().getChunk();
             int x = e.getLocation().getChunk().getX();
             int z = e.getLocation().getChunk().getZ();
